@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MFG Partners — Internal Operations Playbook</title>
+<style>
+:root{--navy:#1A2B4A;--navy-deep:#0F1B33;--steel:#3B5998;--accent:#0D7C66;--accent-light:#10A37F;--light-bg:#F4F6F9;--white:#FFFFFF;--dark:#1A1A1A;--mid:#4A4A4A;--light:#6B7280;--border:#D1D5DB;--shadow:0 4px 24px rgba(26,43,74,.08);--green:#03543F;--green-bg:#DEF7EC;--amber:#92400E;--amber-bg:#FEF3C7;--blue:#1E40AF;--blue-bg:#DBEAFE;--red:#991B1B;--red-bg:#FEE2E2}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--dark);line-height:1.65;background:var(--light-bg)}
+
+/* SIDEBAR NAV */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:220px;background:var(--navy);z-index:100;overflow-y:auto;padding:1.25rem 0}
+.sidebar .logo{color:var(--white);font-size:1rem;font-weight:700;letter-spacing:1px;padding:0 1.25rem;margin-bottom:.25rem}
+.sidebar .logo span{color:var(--accent-light)}
+.sidebar .badge{display:inline-block;background:rgba(13,124,102,.25);border:1px solid rgba(13,124,102,.4);color:var(--accent-light);font-size:.55rem;padding:.1rem .4rem;border-radius:100px;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin:0 0 1.25rem 1.25rem}
+.sidebar .group{margin-bottom:.75rem}
+.sidebar .group-label{color:rgba(255,255,255,.3);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:0 1.25rem;margin-bottom:.3rem}
+.sidebar a{display:flex;align-items:center;gap:.6rem;padding:.45rem 1.25rem;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;font-weight:500;transition:all .15s;border-left:3px solid transparent}
+.sidebar a:hover,.sidebar a.active{color:var(--white);background:rgba(255,255,255,.06);border-left-color:var(--accent)}
+.sidebar .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+
+/* MAIN */
+main{margin-left:220px;min-height:100vh}
+
+/* TOP BAR */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar h2{font-size:1rem;font-weight:700;color:var(--navy)}
+.topbar .meta{font-size:.75rem;color:var(--light)}
+
+/* CONTENT */
+.content{padding:2rem}
+.section-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid var(--border)}
+.section-header .icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;color:var(--white)}
+.section-header h2{font-size:1.35rem;font-weight:800;color:var(--navy)}
+.section-header .desc{color:var(--light);font-size:.8rem;margin-left:auto}
+
+/* PIPELINE BOARD */
+.pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:2rem}
+.pipe-col{background:var(--white);border-radius:8px;padding:.75rem;border:1px solid var(--border)}
+.pipe-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+.pipe-hdr h3{font-size:.75rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+.pipe-hdr .cnt{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--white)}
+.deal{background:var(--light-bg);border:1px solid var(--border);border-radius:6px;padding:.75rem;margin-bottom:.5rem}
+.deal h4{font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.15rem}
+.deal .vert{font-size:.7rem;color:var(--accent);font-weight:600;margin-bottom:.35rem}
+.deal .tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.35rem}
+.tag{font-size:.6rem;font-weight:600;padding:.1rem .4rem;border-radius:100px;text-transform:uppercase;letter-spacing:.3px}
+.deal .det{font-size:.72rem;color:var(--light);line-height:1.45}
+.deal .det strong{color:var(--mid)}
+.deal .next{margin-top:.35rem;padding-top:.35rem;border-top:1px dashed var(--border);font-size:.72rem;color:var(--steel);font-weight:500}
+
+/* MILESTONES */
+.milestones{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-bottom:2rem}
+.ms{display:flex;gap:.6rem;padding:.75rem;background:var(--white);border-radius:6px;border:1px solid var(--border)}
+.ms .chk{width:20px;height:20px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;margin-top:2px}
+.ms h4{font-size:.8rem;font-weight:600;color:var(--navy)}.ms p{font-size:.7rem;color:var(--light)}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem}
+.tm{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center}
+.tm-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .5rem;font-size:.9rem;font-weight:800;color:var(--white)}
+.tm h4{font-size:.85rem;font-weight:700;color:var(--navy)}.tm .role{font-size:.7rem;color:var(--accent);font-weight:600;margin-bottom:.4rem}
+.tm .asgn{text-align:left}
+.tm .a-row{font-size:.7rem;color:var(--mid);padding:.2rem 0;border-bottom:1px solid var(--light-bg);display:flex;justify-content:space-between;align-items:center}
+.tm .a-row:last-child{border-bottom:none}
+.alert-bar{padding:.6rem 1rem;background:var(--amber-bg);border-radius:6px;border-left:3px solid var(--amber);font-size:.78rem;color:var(--amber);margin-bottom:2rem}
+.alert-bar strong{color:var(--red)}
+
+/* PLAYBOOK */
+.playbook-nav{display:grid;grid-template-columns:repeat(9,1fr);gap:.4rem;margin-bottom:2rem}
+.pb-tab{text-align:center;padding:.6rem .25rem;border-radius:6px;background:var(--white);border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:.7rem;font-weight:600;color:var(--mid)}
+.pb-tab:hover{border-color:var(--accent);color:var(--accent)}
+.pb-tab.active{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.pb-tab .num{display:block;font-size:1rem;font-weight:800;margin-bottom:.15rem}
+
+.pb-stage{display:none;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:2rem;margin-bottom:2rem}
+.pb-stage.active{display:block}
+.pb-stage h3{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:.25rem}
+.pb-stage .obj{color:var(--accent);font-size:.85rem;font-weight:600;margin-bottom:1rem}
+.pb-stage h4{font-size:.9rem;font-weight:700;color:var(--steel);margin:1rem 0 .5rem}
+.pb-stage ul{list-style:none;padding:0;margin-bottom:.5rem}
+.pb-stage li{padding:.35rem 0 .35rem 1.5rem;position:relative;font-size:.85rem;color:var(--mid);line-height:1.55}
+.pb-stage li::before{content:'';position:absolute;left:.25rem;top:.65rem;width:10px;height:10px;border:2px solid var(--border);border-radius:3px}
+.pb-stage .templates{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.pb-stage .tmpl{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .75rem;background:var(--light-bg);border:1px solid var(--border);border-radius:6px;font-size:.75rem;font-weight:600;color:var(--steel);cursor:pointer;transition:all .15s}
+.pb-stage .tmpl:hover{border-color:var(--accent);color:var(--accent)}
+.pb-stage .owner{margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border);font-size:.8rem;color:var(--light)}
+.pb-stage .owner strong{color:var(--navy)}
+
+/* MARKET CONTEXT */
+.mkt{background:var(--navy);border-radius:10px;padding:1.5rem;margin-bottom:2rem;color:var(--white)}
+.mkt h3{font-size:1rem;font-weight:700;margin-bottom:.5rem}.mkt p{color:rgba(255,255,255,.55);font-size:.85rem;line-height:1.7}
+.mkt-stats{display:flex;gap:2rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.08)}
+.mkt-stats .num{color:var(--accent-light);font-size:1.4rem;font-weight:800}
+.mkt-stats .label{color:rgba(255,255,255,.35);font-size:.65rem;text-transform:uppercase;letter-spacing:1px}
+
+/* DOCS */
+.doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.doc{display:flex;align-items:center;gap:.6rem;padding:.75rem;background:var(--white);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .15s}
+.doc:hover{border-color:var(--accent);box-shadow:0 2px 8px rgba(13,124,102,.08)}
+.doc-ic{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:var(--white);flex-shrink:0}
+.doc h4{font-size:.8rem;font-weight:600;color:var(--navy)}.doc p{font-size:.65rem;color:var(--light)}
+
+/* RESPONSIVE */
+@media(max-width:900px){.sidebar{width:60px;padding:1rem 0}.sidebar .logo,.sidebar .badge,.sidebar .group-label,.sidebar a span{display:none}.sidebar a{justify-content:center;padding:.5rem}main{margin-left:60px}
+.pipeline,.team-grid{grid-template-columns:repeat(2,1fr)}.playbook-nav{grid-template-columns:repeat(3,1fr)}.milestones,.doc-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="logo">MFG <span>Partners</span></div>
+  <div class="badge">Playbook</div>
+  <div class="group">
+    <div class="group-label">Operations</div>
+    <a href="#dashboard" class="active"><div class="dot" style="background:var(--accent)"></div><span>Dashboard</span></a>
+    <a href="#pipeline-section"><div class="dot" style="background:var(--steel)"></div><span>Deal Pipeline</span></a>
+    <a href="#team-section"><div class="dot" style="background:var(--navy)"></div><span>Team &amp; Workload</span></a>
+    <a href="#milestones-section"><div class="dot" style="background:var(--amber)"></div><span>Milestones</span></a>
+  </div>
+  <div class="group">
+    <div class="group-label">Playbook</div>
+    <a href="#playbook"><div class="dot" style="background:var(--accent-light)"></div><span>Deal Lifecycle</span></a>
+    <a href="#pb" onclick="showStage(0)"><div class="dot" style="background:var(--border)"></div><span>1. Sourcing</span></a>
+    <a href="#pb" onclick="showStage(1)"><div class="dot" style="background:var(--border)"></div><span>2. Screening</span></a>
+    <a href="#pb" onclick="showStage(2)"><div class="dot" style="background:var(--border)"></div><span>3. Diligence</span></a>
+    <a href="#pb" onclick="showStage(3)"><div class="dot" style="background:var(--border)"></div><span>4. Valuation</span></a>
+    <a href="#pb" onclick="showStage(4)"><div class="dot" style="background:var(--border)"></div><span>5. Negotiation</span></a>
+    <a href="#pb" onclick="showStage(5)"><div class="dot" style="background:var(--border)"></div><span>6. Structuring</span></a>
+    <a href="#pb" onclick="showStage(6)"><div class="dot" style="background:var(--border)"></div><span>7. Close</span></a>
+    <a href="#pb" onclick="showStage(7)"><div class="dot" style="background:var(--border)"></div><span>8. Integration</span></a>
+    <a href="#pb" onclick="showStage(8)"><div class="dot" style="background:var(--border)"></div><span>9. Operations</span></a>
+  </div>
+  <div class="group">
+    <div class="group-label">Reference</div>
+    <a href="#market-section"><div class="dot" style="background:var(--accent)"></div><span>Market Context</span></a>
+    <a href="#docs-section"><div class="dot" style="background:var(--steel)"></div><span>Documents</span></a>
+  </div>
+</div>
+
+<main>
+<div class="topbar">
+  <h2>MFG Partners Operations Playbook</h2>
+  <div class="meta">Last updated: March 16, 2026 &mdash; Internal &amp; Confidential</div>
+</div>
+
+<div class="content">
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard">
+  <div class="section-header">
+    <div class="icon" style="background:var(--accent)">&#9670;</div>
+    <h2>Dashboard</h2>
+    <span class="desc">Pipeline status &amp; team workload at a glance</span>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div id="pipeline-section">
+  <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.75rem">Deal Pipeline <span style="font-weight:400;color:var(--light);font-size:.8rem">&mdash; All targets are pipeline; none currently closed</span></h3>
+  <div class="pipeline">
+    <div class="pipe-col">
+      <div class="pipe-hdr"><h3>Closing</h3><div class="cnt" style="background:var(--green)">1</div></div>
+      <div class="deal"><h4>KJ Travel</h4><div class="vert">Team Travel Services</div><div class="tags"><span class="tag" style="background:var(--red-bg);color:var(--red)">High</span><span class="tag" style="background:var(--green-bg);color:var(--green)">Acquisition</span></div><div class="det">Hotel brokerage &amp; travel mgmt for professional teams. First operating company.</div><div class="next">&#9654; Finalize terms &mdash; gated by LLC formation</div></div>
+    </div>
+    <div class="pipe-col">
+      <div class="pipe-hdr"><h3>Negotiation</h3><div class="cnt" style="background:var(--amber)">1</div></div>
+      <div class="deal"><h4>SRA</h4><div class="vert">Sponsorship &amp; Revenue</div><div class="tags"><span class="tag" style="background:var(--red-bg);color:var(--red)">High</span><span class="tag" style="background:var(--blue-bg);color:var(--blue)">65% Majority</span></div><div class="det">Net rev: <strong>$516K</strong> (58.3%). Tail: <strong>$3.2M</strong> thru 2036. Target: $1.8M&ndash;$2.0M.</div><div class="next">&#9654; Finalize acquisition structure</div></div>
+    </div>
+    <div class="pipe-col">
+      <div class="pipe-hdr"><h3>Active</h3><div class="cnt" style="background:var(--steel)">1</div></div>
+      <div class="deal"><h4>Pro Risk Planners</h4><div class="vert">Sports Insurance</div><div class="tags"><span class="tag" style="background:var(--amber-bg);color:var(--amber)">Med</span><span class="tag" style="background:var(--light-bg);color:var(--mid)">Fee-Share</span></div><div class="det">Paul Byrne partnership. Y1: 50/50, recurring: 35/65.</div><div class="next">&#9654; Revenue tracking &amp; ops cadence</div></div>
+    </div>
+    <div class="pipe-col">
+      <div class="pipe-hdr"><h3>On Hold</h3><div class="cnt" style="background:var(--light)">1</div></div>
+      <div class="deal"><h4>Analyst House</h4><div class="vert">Financial Ops</div><div class="tags"><span class="tag" style="background:var(--light-bg);color:var(--light)">Low</span><span class="tag" style="background:var(--light-bg);color:var(--mid)">25% Equity</span></div><div class="det">ARR: <strong>~$820K</strong>, ~25 accounts. Blocked by KJ/SRA close.</div><div class="next">&#9654; Reactivate post KJ/SRA</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MILESTONES -->
+<div id="milestones-section">
+  <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.75rem">Key Milestones &mdash; Q1 2026</h3>
+  <div class="milestones">
+    <div class="ms"><div class="chk"></div><div><h4>MFG Partners LLC Formation</h4><p>Prerequisite for KJ close &mdash; Howard Muchnick finalizing partnership agreement</p></div></div>
+    <div class="ms"><div class="chk"></div><div><h4>KJ Travel Acquisition Close</h4><p>Contingent on LLC formation &mdash; first operating company</p></div></div>
+    <div class="ms"><div class="chk"></div><div><h4>SRA Structure Finalization</h4><p>65% majority recommended &mdash; Clark Beacom availability dependent</p></div></div>
+    <div class="ms"><div class="chk"></div><div><h4>Pro Risk Revenue Tracking</h4><p>Establish partnership ops cadence with Paul Byrne</p></div></div>
+  </div>
+</div>
+
+<!-- TEAM -->
+<div id="team-section">
+  <h3 style="font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.75rem">Team &amp; Workload</h3>
+  <div class="team-grid">
+    <div class="tm"><div class="tm-av" style="background:var(--navy)">JG</div><h4>Jordan Gazdik</h4><div class="role">CEO</div><div class="asgn"><div class="a-row">Strategy &amp; Vision <span class="tag" style="background:var(--green-bg);color:var(--green)">Active</span></div><div class="a-row">Deal Origination <span class="tag" style="background:var(--green-bg);color:var(--green)">Active</span></div><div class="a-row">LP Relationships <span class="tag" style="background:var(--green-bg);color:var(--green)">Active</span></div><div class="a-row">Pro Risk Lead <span class="tag" style="background:var(--blue-bg);color:var(--blue)">Ongoing</span></div></div></div>
+    <div class="tm"><div class="tm-av" style="background:var(--steel)">MK</div><h4>Michael Kohn</h4><div class="role">Head Analyst / Ops</div><div class="asgn"><div class="a-row">KJ Travel <span class="tag" style="background:var(--red-bg);color:var(--red)">High</span></div><div class="a-row">SRA <span class="tag" style="background:var(--red-bg);color:var(--red)">High</span></div><div class="a-row">CDT / Champion <span class="tag" style="background:var(--amber-bg);color:var(--amber)">Med</span></div><div class="a-row">All Modeling <span class="tag" style="background:var(--blue-bg);color:var(--blue)">Ongoing</span></div></div></div>
+    <div class="tm"><div class="tm-av" style="background:var(--accent)">ZM</div><h4>Zachary Mosseri</h4><div class="role">CBO</div><div class="asgn"><div class="a-row">Analyst House <span class="tag" style="background:var(--light-bg);color:var(--light)">Hold</span></div><div class="a-row">Three Ocean <span class="tag" style="background:var(--light-bg);color:var(--light)">Monitor</span></div><div class="a-row">IR &amp; Capital Raise <span class="tag" style="background:var(--green-bg);color:var(--green)">Active</span></div></div></div>
+    <div class="tm"><div class="tm-av" style="background:#2C5F2D">AF</div><h4>Aaron Fernandez</h4><div class="role">COO</div><div class="asgn"><div class="a-row">Deal Structuring <span class="tag" style="background:var(--green-bg);color:var(--green)">Active</span></div><div class="a-row">Legal Coord. <span class="tag" style="background:var(--green-bg);color:var(--green)">Active</span></div><div class="a-row">Bank Financing <span class="tag" style="background:var(--blue-bg);color:var(--blue)">Ongoing</span></div></div></div>
+  </div>
+  <div class="alert-bar"><strong>Bandwidth Flag:</strong> Michael Kohn is primary analyst across ALL active deals. Next critical hire: dedicated BD team member.</div>
+</div>
+
+<!-- ===== PLAYBOOK ===== -->
+<div id="playbook">
+  <div class="section-header">
+    <div class="icon" style="background:var(--accent-light)">&#9783;</div>
+    <h2>Deal Lifecycle Playbook</h2>
+    <span class="desc">Click a stage for objectives, checklist &amp; templates</span>
+  </div>
+
+  <div class="playbook-nav" id="pb-nav">
+    <div class="pb-tab active" onclick="showStage(0)"><span class="num">1</span>Sourcing</div>
+    <div class="pb-tab" onclick="showStage(1)"><span class="num">2</span>Screening</div>
+    <div class="pb-tab" onclick="showStage(2)"><span class="num">3</span>Diligence</div>
+    <div class="pb-tab" onclick="showStage(3)"><span class="num">4</span>Valuation</div>
+    <div class="pb-tab" onclick="showStage(4)"><span class="num">5</span>Negotiation</div>
+    <div class="pb-tab" onclick="showStage(5)"><span class="num">6</span>Structuring</div>
+    <div class="pb-tab" onclick="showStage(6)"><span class="num">7</span>Close</div>
+    <div class="pb-tab" onclick="showStage(7)"><span class="num">8</span>Integration</div>
+    <div class="pb-tab" onclick="showStage(8)"><span class="num">9</span>Operations</div>
+  </div>
+
+  <div id="pb">
+  <!-- STAGE 1 -->
+  <div class="pb-stage active" data-stage="0">
+    <h3>1. Deal Sourcing</h3>
+    <div class="obj">Objective: Build and maintain a proprietary pipeline of middle-market sports service businesses</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Map target verticals: travel, sponsorship, insurance, financial ops</li>
+      <li>Identify potential targets through ownership group networks and league contacts</li>
+      <li>Monitor industry publications, conference attendee lists, and transaction databases</li>
+      <li>Leverage Jordan's sports ownership network for warm introductions</li>
+      <li>Track inbound referrals from existing portfolio company operators</li>
+      <li>Maintain CRM pipeline with contact status, last touchpoint, and next action</li>
+      <li>Score opportunities against platform fit criteria (revenue model, client base, margin profile)</li>
+      <li>Generate weekly sourcing report for team review</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Deal Sourcing Tracker</div>
+      <div class="tmpl">&#128196; Target Screening Criteria</div>
+      <div class="tmpl">&#128196; Outreach Email Templates</div>
+      <div class="tmpl">&#128196; Industry Conference Calendar</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Jordan Gazdik &mdash; <strong>Support:</strong> Michael Kohn, Aaron Fernandez</div>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="pb-stage" data-stage="1">
+    <h3>2. Screening</h3>
+    <div class="obj">Objective: Evaluate target fit against MFG's acquisition criteria before committing diligence resources</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Confirm contracted/recurring revenue model (retainers, commissions, long-term agreements)</li>
+      <li>Verify client base includes professional teams, leagues, or ownership groups</li>
+      <li>Assess margin profile: target &gt;50% gross margin, asset-light model</li>
+      <li>Evaluate cross-sell potential with existing/planned portfolio companies</li>
+      <li>Identify key person risk and operator dependency</li>
+      <li>Review competitive landscape within the specific vertical</li>
+      <li>Assess founder/operator willingness to transact and integration readiness</li>
+      <li>Produce screening memo with go/no-go recommendation</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Screening Memo Template</div>
+      <div class="tmpl">&#128196; Acquisition Criteria Scorecard</div>
+      <div class="tmpl">&#128196; Preliminary Financial Summary</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Michael Kohn &mdash; <strong>Approver:</strong> Jordan Gazdik</div>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="pb-stage" data-stage="2">
+    <h3>3. Due Diligence</h3>
+    <div class="obj">Objective: Comprehensive evaluation of financial, commercial, legal, and operational risk before commitment</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Request and organize data room (3 years financials, contracts, org chart, insurance, legal)</li>
+      <li>Financial DD: quality of earnings, revenue sustainability, working capital analysis</li>
+      <li>Commercial DD: client concentration, contract renewal rates, competitive positioning</li>
+      <li>Legal DD: entity structure, outstanding litigation, IP ownership, regulatory compliance</li>
+      <li>Operational DD: systems, processes, key personnel, capacity constraints</li>
+      <li>Management assessment: interviews with founder/operator and key team members</li>
+      <li>Red flag review and risk matrix development</li>
+      <li>Produce DD summary report with findings and risk-adjusted recommendation</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; DD Request List</div>
+      <div class="tmpl">&#128196; DD Workbook (Excel)</div>
+      <div class="tmpl">&#128196; Risk Matrix Template</div>
+      <div class="tmpl">&#128196; Management Interview Guide</div>
+      <div class="tmpl">&#128196; DD Summary Report</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Michael Kohn &mdash; <strong>Legal:</strong> Aaron Fernandez &mdash; <strong>Approver:</strong> Jordan Gazdik</div>
+  </div>
+
+  <!-- STAGE 4 -->
+  <div class="pb-stage" data-stage="3">
+    <h3>4. Valuation</h3>
+    <div class="obj">Objective: Determine fair value range using multiple methodologies with sports-specific overlays</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Build comparable company analysis (public comps + private transaction comps)</li>
+      <li>Develop precedent transactions analysis from sports services M&amp;A</li>
+      <li>Construct DCF model with base, upside, and downside scenarios</li>
+      <li>Apply sports-specific valuation adjustments (client concentration, contract duration, cross-sell premium)</li>
+      <li>Determine implied multiple ranges (EV/Revenue, EV/EBITDA)</li>
+      <li>Build football field / valuation summary chart</li>
+      <li>Stress-test key assumptions and document sensitivity analysis</li>
+      <li>Present valuation range with recommended offer price and justification</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Valuation Model (Excel)</div>
+      <div class="tmpl">&#128196; Comp Table Template</div>
+      <div class="tmpl">&#128196; DCF Template</div>
+      <div class="tmpl">&#128196; Football Field Chart</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Michael Kohn &mdash; <strong>Review:</strong> Zachary Mosseri &mdash; <strong>Approver:</strong> Jordan Gazdik</div>
+  </div>
+
+  <!-- STAGE 5 -->
+  <div class="pb-stage" data-stage="4">
+    <h3>5. Negotiation</h3>
+    <div class="obj">Objective: Optimize terms while maintaining counterparty alignment and relationship integrity</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Define BATNA (best alternative to negotiated agreement) and walk-away price</li>
+      <li>Map counterparty motivations, constraints, and decision-making authority</li>
+      <li>Develop negotiation strategy memo with concession plan and red lines</li>
+      <li>Prepare term sheet with headline economics and governance provisions</li>
+      <li>Conduct counterparty meetings with prepared talking points</li>
+      <li>Track all term modifications and counterproposals in negotiation log</li>
+      <li>Identify creative structuring options to bridge valuation gaps</li>
+      <li>Secure verbal agreement on key terms before moving to documentation</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Negotiation Strategy Memo</div>
+      <div class="tmpl">&#128196; Term Sheet Template</div>
+      <div class="tmpl">&#128196; Concession Plan Matrix</div>
+      <div class="tmpl">&#128196; Negotiation Log</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Jordan Gazdik &mdash; <strong>Structuring:</strong> Aaron Fernandez &mdash; <strong>Analysis:</strong> Michael Kohn</div>
+  </div>
+
+  <!-- STAGE 6 -->
+  <div class="pb-stage" data-stage="5">
+    <h3>6. Deal Structuring</h3>
+    <div class="obj">Objective: Design transaction economics, governance, and entity structure that align incentives</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Determine acquisition structure (asset purchase, equity purchase, merger, partnership)</li>
+      <li>Design ownership split and governance rights (board seats, veto rights, approval thresholds)</li>
+      <li>Structure earnout/holdback provisions tied to performance milestones</li>
+      <li>Define management incentive alignment (equity rollover, performance bonuses)</li>
+      <li>Model cap table and waterfall economics across scenarios</li>
+      <li>Draft partnership/operating agreement key terms</li>
+      <li>Coordinate with outside counsel on entity formation and legal documentation</li>
+      <li>Produce deal structure summary for team and advisor review</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Deal Structure Summary</div>
+      <div class="tmpl">&#128196; Cap Table Model (Excel)</div>
+      <div class="tmpl">&#128196; Waterfall Analysis</div>
+      <div class="tmpl">&#128196; Partnership Agreement Checklist</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Aaron Fernandez &mdash; <strong>Economics:</strong> Michael Kohn &mdash; <strong>Approver:</strong> Jordan Gazdik</div>
+  </div>
+
+  <!-- STAGE 7 -->
+  <div class="pb-stage" data-stage="6">
+    <h3>7. Execution &amp; Close</h3>
+    <div class="obj">Objective: Execute definitive agreements, secure financing, and complete legal close</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Finalize and execute definitive purchase/partnership agreement</li>
+      <li>Complete entity formation (LLC, corporate filings, EIN, bank accounts)</li>
+      <li>Secure bank financing or capital deployment authorization</li>
+      <li>Satisfy closing conditions (regulatory approvals, third-party consents, rep &amp; warranty confirmations)</li>
+      <li>Coordinate wire transfers and funds flow</li>
+      <li>Execute ancillary agreements (employment, non-compete, transition services)</li>
+      <li>Obtain D&amp;O and commercial insurance coverage</li>
+      <li>File all required governmental and regulatory notices</li>
+      <li>Distribute closing binder to all parties</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Closing Checklist</div>
+      <div class="tmpl">&#128196; Funds Flow Memo</div>
+      <div class="tmpl">&#128196; Entity Formation Checklist</div>
+      <div class="tmpl">&#128196; Closing Binder Index</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Aaron Fernandez &mdash; <strong>Legal:</strong> Outside Counsel &mdash; <strong>Approver:</strong> Jordan Gazdik</div>
+  </div>
+
+  <!-- STAGE 8 -->
+  <div class="pb-stage" data-stage="7">
+    <h3>8. Integration (100-Day Plan)</h3>
+    <div class="obj">Objective: Execute systematic integration to capture platform synergies and establish operating rhythm</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Day 1: Announce transaction to employees, clients, and partners</li>
+      <li>Days 1&ndash;14: Onboard operator to MFG systems (reporting, communication, finance)</li>
+      <li>Days 1&ndash;30: Establish reporting cadence (weekly ops call, monthly financial reporting)</li>
+      <li>Days 1&ndash;30: Map existing client base and identify cross-sell opportunities</li>
+      <li>Days 30&ndash;60: Execute first cross-sell introductions across portfolio</li>
+      <li>Days 30&ndash;60: Implement shared financial infrastructure (chart of accounts, AP/AR processes)</li>
+      <li>Days 60&ndash;90: Evaluate operator performance against integration milestones</li>
+      <li>Day 90: Produce 90-day integration review with performance scorecard</li>
+      <li>Day 100: Transition from integration mode to ongoing operations</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; 100-Day Integration Plan</div>
+      <div class="tmpl">&#128196; Client Mapping Matrix</div>
+      <div class="tmpl">&#128196; Cross-Sell Tracker</div>
+      <div class="tmpl">&#128196; Integration Scorecard</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Aaron Fernandez &mdash; <strong>Cross-Sell:</strong> Jordan Gazdik &mdash; <strong>Reporting:</strong> Michael Kohn</div>
+  </div>
+
+  <!-- STAGE 9 -->
+  <div class="pb-stage" data-stage="8">
+    <h3>9. Ongoing Operations</h3>
+    <div class="obj">Objective: Maximize portfolio company value through operational excellence, cross-sell, and strategic support</div>
+    <h4>Checklist</h4>
+    <ul>
+      <li>Monthly financial reporting: P&amp;L, balance sheet, cash flow, KPI dashboard</li>
+      <li>Weekly operator check-in calls (15 min standing meeting)</li>
+      <li>Quarterly portfolio review with full team (performance, risks, opportunities)</li>
+      <li>Track cross-sell revenue attribution across portfolio companies</li>
+      <li>Monitor client satisfaction and contract renewal pipeline</li>
+      <li>Identify and execute add-on acquisition or expansion opportunities</li>
+      <li>Produce quarterly investor update with portfolio performance summary</li>
+      <li>Annual budget planning and strategic goal-setting with each operator</li>
+      <li>Maintain institutional documentation for all operating decisions</li>
+    </ul>
+    <h4>Templates &amp; Tools</h4>
+    <div class="templates">
+      <div class="tmpl">&#128196; Monthly Reporting Template</div>
+      <div class="tmpl">&#128196; KPI Dashboard (Excel)</div>
+      <div class="tmpl">&#128196; Cross-Sell Attribution Tracker</div>
+      <div class="tmpl">&#128196; Quarterly Portfolio Review Deck</div>
+      <div class="tmpl">&#128196; Investor Update Template</div>
+    </div>
+    <div class="owner"><strong>Primary:</strong> Michael Kohn &mdash; <strong>Strategic:</strong> Jordan Gazdik &mdash; <strong>IR:</strong> Zachary Mosseri</div>
+  </div>
+  </div>
+</div>
+
+<!-- ===== MARKET CONTEXT ===== -->
+<div id="market-section">
+  <div class="section-header">
+    <div class="icon" style="background:var(--accent)">&#9889;</div>
+    <h2>Market Context</h2>
+    <span class="desc">Quick reference &mdash; full detail on external site</span>
+  </div>
+  <div class="mkt">
+    <h3>Sports Capital Deployment: Last 6&ndash;8 Months</h3>
+    <p>$20B+ in new institutional commitments across 12 major fund launches. Sports Tech M&amp;A up 100% YoY to $200B across 1,000+ deals. Highlights: KKR/Arctos ($1.4B), Apollo Sports Capital ($6B), CVC Global Sports Group ($4.25B), TKO $1.6B adj. EBITDA.</p>
+    <div class="mkt-stats">
+      <div><div class="num">$20B+</div><div class="label">New Capital</div></div>
+      <div><div class="num">12</div><div class="label">Fund Launches</div></div>
+      <div><div class="num">$813B</div><div class="label">Sports Tourism Mkt</div></div>
+      <div><div class="num">$40B</div><div class="label">Youth Sports (NYT)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DOCUMENTS ===== -->
+<div id="docs-section">
+  <div class="section-header">
+    <div class="icon" style="background:var(--steel)">&#128196;</div>
+    <h2>Key Documents</h2>
+    <span class="desc">Quick access to core deliverables</span>
+  </div>
+  <div class="doc-grid">
+    <div class="doc"><div class="doc-ic" style="background:var(--navy)">DOCX</div><div><h4>MFG Overview Framework</h4><p>Master document &mdash; operations, thesis, Why Now</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--steel)">PPTX</div><div><h4>Overview Deck</h4><p>9-slide board presentation</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--accent)">DOCX</div><div><h4>Jordan Gazdik Profile</h4><p>Leadership one-pager</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--accent)">DOCX</div><div><h4>Zachary Mosseri Profile</h4><p>Leadership one-pager</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--accent)">DOCX</div><div><h4>Aaron Fernandez Profile</h4><p>Leadership one-pager</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:#2C5F2D">XLSX</div><div><h4>KJ Financial Breakdown</h4><p>Travel financial model V2</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--navy)">PPTX</div><div><h4>Project Keystone Teaser</h4><p>LP-facing teaser &mdash; LOI v4</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--steel)">XLSX</div><div><h4>Keystone LP Tracker</h4><p>LP commitment tracking</p></div></div>
+    <div class="doc"><div class="doc-ic" style="background:var(--amber)">MD</div><div><h4>Brand Voice Guide</h4><p>Tone, phrasing, anti-patterns</p></div></div>
+  </div>
+</div>
+
+</div><!-- end .content -->
+</main>
+
+<script>
+function showStage(idx){
+  document.querySelectorAll('.pb-stage').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.pb-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pb-stage')[idx].classList.add('active');
+  document.querySelectorAll('.pb-tab')[idx].classList.add('active');
+  document.getElementById('pb').scrollIntoView({behavior:'smooth',block:'start'});
+}
+// Sidebar active state
+document.querySelectorAll('.sidebar a').forEach(a=>{
+  a.addEventListener('click',function(){document.querySelectorAll('.sidebar a').forEach(x=>x.classList.remove('active'));this.classList.add('active')});
+});
+</script>
+</body>
+</html>
