@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MFG Partners — Sports Services Investment & Operating Platform</title>
+<style>
+:root{--navy:#1A2B4A;--navy-deep:#0F1B33;--steel:#3B5998;--accent:#0D7C66;--accent-light:#10A37F;--light-bg:#F4F6F9;--white:#FFFFFF;--dark:#1A1A1A;--mid:#4A4A4A;--light:#6B7280;--border:#D1D5DB;--shadow:0 4px 24px rgba(26,43,74,.08)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--dark);line-height:1.7;background:var(--white)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,43,74,.97);backdrop-filter:blur(12px);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;border-bottom:2px solid var(--accent)}
+nav .logo{color:var(--white);font-size:1.15rem;font-weight:700;letter-spacing:1px}
+nav .logo span{color:var(--accent-light)}
+nav ul{list-style:none;display:flex;gap:.25rem}
+nav ul a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.8rem;font-weight:500;padding:.4rem .75rem;border-radius:6px;transition:all .2s}
+nav ul a:hover{color:var(--white);background:rgba(255,255,255,.1)}
+.nav-cta{background:var(--accent)!important;color:var(--white)!important;font-weight:600!important}
+.nav-cta:hover{background:var(--accent-light)!important}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-deep) 50%,#0A1628 100%);display:flex;align-items:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-20%;width:70%;height:200%;background:radial-gradient(ellipse,rgba(13,124,102,.1) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+.hero-text .badge{display:inline-block;padding:.3rem .9rem;border-radius:100px;background:rgba(13,124,102,.15);border:1px solid rgba(13,124,102,.3);color:var(--accent-light);font-size:.7rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.25rem}
+.hero h1{color:var(--white);font-size:3rem;font-weight:800;line-height:1.12;margin-bottom:1rem}
+.hero h1 em{color:var(--accent-light);font-style:normal}
+.hero .sub{color:rgba(255,255,255,.6);font-size:1.05rem;line-height:1.8;margin-bottom:2rem;max-width:520px}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.5rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--white)}.btn-primary:hover{background:var(--accent-light)}
+.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.25)}.btn-outline:hover{border-color:var(--accent-light);color:var(--accent-light)}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.h-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.5rem}
+.h-stat .num{color:var(--accent-light);font-size:2rem;font-weight:800}
+.h-stat .label{color:rgba(255,255,255,.4);font-size:.7rem;text-transform:uppercase;letter-spacing:1px;margin-top:.2rem}
+
+/* SECTIONS */
+section{padding:5rem 2rem}.container{max-width:1100px;margin:0 auto}
+.s-label{color:var(--accent);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:.5rem}
+.s-title{font-size:2.2rem;font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:.75rem}
+.s-sub{color:var(--mid);font-size:1rem;max-width:680px;margin-bottom:2.5rem;line-height:1.8}
+
+/* WHAT WE DO */
+.what-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.what-card{background:var(--light-bg);border:1px solid var(--border);border-radius:12px;padding:1.75rem;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.what-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.what-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent)}
+.what-icon{width:44px;height:44px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem;color:var(--white)}
+.what-card h3{color:var(--navy);font-size:.95rem;font-weight:700;margin-bottom:.4rem}
+.what-card p{color:var(--mid);font-size:.82rem;line-height:1.65}
+
+/* HOW WE DO IT */
+.how-section{background:var(--light-bg)}
+.how-flow{display:flex;align-items:flex-start;gap:0;position:relative;margin-top:1rem}
+.how-step{flex:1;text-align:center;position:relative;padding:0 .5rem}
+.how-step::after{content:'';position:absolute;top:22px;right:-12px;width:24px;height:2px;background:var(--border)}
+.how-step:last-child::after{display:none}
+.how-dot{width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;margin:0 auto .75rem;position:relative;z-index:1}
+.how-step h4{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.how-step p{font-size:.7rem;color:var(--light);line-height:1.5}
+
+/* THESIS */
+.thesis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.thesis-card{padding:1.75rem;border-radius:12px;border:1px solid var(--border);background:var(--white);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.thesis-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent)}
+.thesis-card h3{color:var(--navy);font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.thesis-card p{color:var(--mid);font-size:.85rem;line-height:1.7}
+
+/* WHY NOW */
+.why-section{background:var(--navy);color:var(--white)}
+.why-section .s-label{color:var(--accent-light)}.why-section .s-title{color:var(--white)}.why-section .s-sub{color:rgba(255,255,255,.55)}
+.ticker{display:flex;justify-content:center;gap:4rem;margin-bottom:2.5rem;padding:1.5rem;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.ticker .num{color:var(--accent-light);font-size:2.2rem;font-weight:800;text-align:center}
+.ticker .label{color:rgba(255,255,255,.35);font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;text-align:center;margin-top:.15rem}
+.wn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+.wn-item{display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.1rem;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);text-decoration:none;transition:all .2s;cursor:pointer}
+.wn-item:hover{background:rgba(255,255,255,.08);border-color:rgba(13,124,102,.4)}
+.wn-num{flex-shrink:0;width:30px;height:30px;border-radius:6px;background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem}
+.wn-text h4{color:var(--white);font-size:.88rem;font-weight:600;margin-bottom:.1rem}
+.wn-text p{color:rgba(255,255,255,.4);font-size:.78rem;line-height:1.5}
+.wn-text .src{display:inline-flex;align-items:center;gap:.25rem;margin-top:.25rem;color:var(--accent-light);font-size:.68rem;font-weight:600;opacity:0;transition:opacity .2s}
+.wn-item:hover .src{opacity:1}
+.wn-callout{margin-top:2rem;padding:1.5rem;border-radius:10px;background:rgba(13,124,102,.1);border:1px solid rgba(13,124,102,.25)}
+.wn-callout h3{color:var(--accent-light);font-size:1rem;margin-bottom:.4rem}
+.wn-callout p{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.75}
+
+/* ANTI-AI */
+.anti-ai{background:linear-gradient(135deg,#0A1628,var(--navy));padding:3.5rem 2rem;text-align:center}
+.anti-ai h2{color:var(--white);font-size:1.8rem;font-weight:800;margin-bottom:.5rem}
+.anti-ai h2 em{color:var(--accent-light);font-style:normal}
+.anti-ai p{color:rgba(255,255,255,.5);font-size:.95rem;max-width:680px;margin:0 auto;line-height:1.75}
+.anti-ai .row{display:flex;justify-content:center;gap:3rem;margin-top:1.5rem}
+.anti-ai .row .num{color:var(--accent-light);font-size:1.6rem;font-weight:800}
+.anti-ai .row .label{color:rgba(255,255,255,.3);font-size:.7rem;text-transform:uppercase;letter-spacing:1px}
+
+/* TOURISM */
+.tour-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+.tour-stat{text-align:center;padding:1.5rem;background:var(--light-bg);border-radius:10px;border:1px solid var(--border)}
+.tour-stat .num{color:var(--accent);font-size:1.8rem;font-weight:800}
+.tour-stat .label{color:var(--mid);font-size:.8rem;margin-top:.25rem}
+.spend-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin:1.5rem 0}
+.spend-box{text-align:center;padding:1.1rem .5rem;background:var(--navy);border-radius:8px}
+.spend-box .amt{color:var(--accent-light);font-size:1.15rem;font-weight:800}
+.spend-box .cat{color:rgba(255,255,255,.45);font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;margin-top:.2rem}
+.tour-callout{padding:1.25rem 1.5rem;background:var(--light-bg);border-radius:8px;border-left:4px solid var(--accent)}
+.tour-callout p{color:var(--mid);font-size:.9rem;line-height:1.75}
+.tour-callout strong{color:var(--navy)}
+
+/* LEADERSHIP */
+.lead-section{background:var(--light-bg)}
+.lead-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.lead-card{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:all .2s}
+.lead-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(26,43,74,.12)}
+.lead-hdr{background:var(--navy);padding:1.5rem;text-align:center}
+.lead-av{width:60px;height:60px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.3rem;font-weight:800;color:var(--white)}
+.lead-hdr h3{color:var(--white);font-size:1rem;font-weight:700}
+.lead-hdr .role{color:var(--accent-light);font-size:.75rem;font-weight:600;margin-top:.15rem}
+.lead-body{padding:1.25rem}
+.lead-body p{color:var(--mid);font-size:.8rem;line-height:1.65;margin-bottom:.75rem}
+.lead-tags{display:flex;flex-wrap:wrap;gap:.3rem}
+.lead-tag{padding:.15rem .5rem;border-radius:100px;background:var(--light-bg);color:var(--steel);font-size:.65rem;font-weight:600}
+.lead-expand{display:flex;align-items:center;justify-content:center;padding:.7rem;border-top:1px solid var(--border);color:var(--accent);font-size:.8rem;font-weight:600;gap:.3rem}
+
+/* JOIN / CTA */
+.join-section{background:var(--navy);padding:5rem 2rem}
+.join-section .s-label{color:var(--accent-light)}.join-section .s-title{color:var(--white)}.join-section .s-sub{color:rgba(255,255,255,.55)}
+.join-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+.join-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:2.5rem;transition:all .2s}
+.join-card:hover{background:rgba(255,255,255,.07);border-color:rgba(13,124,102,.35)}
+.join-card .icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.25rem}
+.join-card h3{color:var(--white);font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.join-card p{color:rgba(255,255,255,.5);font-size:.88rem;line-height:1.75;margin-bottom:1.25rem}
+.join-card ul{list-style:none;padding:0;margin-bottom:1.5rem}
+.join-card li{color:rgba(255,255,255,.6);font-size:.82rem;padding:.3rem 0 .3rem 1.25rem;position:relative;line-height:1.5}
+.join-card li::before{content:'';position:absolute;left:0;top:.6rem;width:6px;height:6px;border-radius:50%;background:var(--accent-light)}
+
+/* FOOTER */
+footer{background:#0A1628;padding:2.5rem 2rem;text-align:center;border-top:2px solid var(--accent)}
+footer .logo{color:var(--white);font-size:1rem;font-weight:700;letter-spacing:1px}
+footer .logo span{color:var(--accent-light)}
+footer p{color:rgba(255,255,255,.25);font-size:.75rem;margin-top:.5rem}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,22,40,.75);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.active{display:flex}
+.modal{background:var(--white);border-radius:16px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.3)}
+.m-hdr{background:var(--navy);padding:2rem;text-align:center;border-radius:16px 16px 0 0;position:sticky;top:0;z-index:1}
+.m-av{width:80px;height:80px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.8rem;font-weight:800;color:var(--white);border:3px solid rgba(255,255,255,.2)}
+.m-hdr h2{color:var(--white);font-size:1.4rem;font-weight:800}
+.m-hdr .role{color:var(--accent-light);font-size:.85rem;font-weight:600;margin-top:.2rem}
+.m-hdr .ent{color:rgba(255,255,255,.4);font-size:.75rem;margin-top:.25rem}
+.m-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:var(--white);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.m-close:hover{background:rgba(255,255,255,.2)}
+.m-body{padding:2rem}
+.m-body h3{font-size:1rem;font-weight:700;color:var(--navy);margin:1.25rem 0 .5rem}.m-body h3:first-child{margin-top:0}
+.m-body p{color:var(--mid);font-size:.9rem;line-height:1.75;margin-bottom:.75rem}
+.m-body ul{list-style:none;padding:0}
+.m-body li{padding:.4rem 0 .4rem 1.25rem;position:relative;color:var(--mid);font-size:.85rem;line-height:1.6}
+.m-body li::before{content:'';position:absolute;left:0;top:.75rem;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.cred-tbl{width:100%;border-collapse:collapse;margin:.5rem 0}
+.cred-tbl td{padding:.6rem .75rem;font-size:.85rem;border-bottom:1px solid var(--light-bg)}
+.cred-tbl td:first-child{font-weight:700;color:var(--navy);width:35%}
+.cred-tbl td:last-child{color:var(--mid)}
+.cred-tbl tr:last-child td{border-bottom:none}
+.m-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.m-tag{padding:.25rem .7rem;border-radius:100px;background:var(--light-bg);color:var(--steel);font-size:.75rem;font-weight:600}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.hero-inner{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}
+.what-grid{grid-template-columns:repeat(2,1fr)}.how-flow{flex-wrap:wrap;gap:1rem}.how-step::after{display:none}
+.thesis-grid,.wn-grid,.join-grid{grid-template-columns:1fr}.lead-cards{grid-template-columns:1fr}
+.tour-stats{grid-template-columns:1fr}.spend-row{grid-template-columns:repeat(3,1fr)}
+.ticker{flex-wrap:wrap;gap:2rem}nav ul{display:none}
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">MFG <span>Partners</span></div>
+  <ul>
+    <li><a href="#what">What We Do</a></li>
+    <li><a href="#how">How</a></li>
+    <li><a href="#thesis">Thesis</a></li>
+    <li><a href="#why-now">Why Now</a></li>
+    <li><a href="#tourism">Tourism</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#join" class="nav-cta">Join Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="badge">Sports Services Investment Platform</div>
+      <h1>The operating infrastructure behind <em>professional sports.</em></h1>
+      <p class="sub">MFG Partners acquires, operates, and integrates middle-market service businesses powering professional teams, leagues, and ownership groups. Travel. Sponsorship. Insurance. Financial operations. One platform.</p>
+      <div class="hero-ctas">
+        <a href="#join" class="btn btn-primary">Partner With Us &#8594;</a>
+        <a href="#why-now" class="btn btn-outline">Why Now?</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="num">~$6M</div><div class="label">Revenue Target</div></div>
+      <div class="h-stat"><div class="num">$1.25M</div><div class="label">Dist. Profit</div></div>
+      <div class="h-stat"><div class="num">4</div><div class="label">Target Verticals</div></div>
+      <div class="h-stat"><div class="num">$20B+</div><div class="label">Capital Entering Sports</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what">
+  <div class="container">
+    <div class="s-label">What We Do</div>
+    <div class="s-title">Four verticals. One platform.</div>
+    <div class="s-sub">We target contracted, cash-flowing service companies across core sports verticals and integrate them under a unified holding entity with shared infrastructure, institutional relationships, and a compounding referral flywheel.</div>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-icon">&#9992;</div>
+        <h3>Team Travel Services</h3>
+        <p>Hotel brokerage, charter logistics, and travel management for professional teams and leagues. The operational backbone of competitive sports.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">&#9733;</div>
+        <h3>Sponsorship & Revenue Advisory</h3>
+        <p>Sponsorship sales, revenue optimization, and commercial advisory for sports properties. Turning relationships into recurring revenue.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">&#9881;</div>
+        <h3>Sports Insurance</h3>
+        <p>Commercial and specialty insurance for venues, teams, events, and related properties. Low-capital-intensity revenue stream with cross-sell adjacency.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-icon">&#9783;</div>
+        <h3>Financial Operations & Analytics</h3>
+        <p>Fractional CFO, financial operations, and data analytics for middle-market sports businesses. The analytical layer across the portfolio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE DO IT -->
+<section id="how" class="how-section">
+  <div class="container">
+    <div class="s-label">How We Operate</div>
+    <div class="s-title">Disciplined process. Institutional execution.</div>
+    <div class="s-sub">Every acquisition follows a rigorous, repeatable process from sourcing through integration &mdash; designed to de-risk execution and compound platform value.</div>
+    <div class="how-flow">
+      <div class="how-step"><div class="how-dot">1</div><h4>Source</h4><p>Proprietary deal flow through ownership networks and league relationships</p></div>
+      <div class="how-step"><div class="how-dot">2</div><h4>Screen</h4><p>Evaluate fit against contracted revenue, margin, and cross-sell criteria</p></div>
+      <div class="how-step"><div class="how-dot">3</div><h4>Diligence</h4><p>Financial, commercial, legal, and operational due diligence</p></div>
+      <div class="how-step"><div class="how-dot">4</div><h4>Value</h4><p>Comp analysis, DCF, and sports-specific valuation overlays</p></div>
+      <div class="how-step"><div class="how-dot">5</div><h4>Negotiate</h4><p>Term optimization and counterparty alignment</p></div>
+      <div class="how-step"><div class="how-dot">6</div><h4>Structure</h4><p>Deal economics, governance, and integration planning</p></div>
+      <div class="how-step"><div class="how-dot">7</div><h4>Close</h4><p>Legal execution, financing, and entity formation</p></div>
+      <div class="how-step"><div class="how-dot">8</div><h4>Integrate</h4><p>100-day plan: systems, cross-sell, and reporting</p></div>
+      <div class="how-step"><div class="how-dot">9</div><h4>Operate</h4><p>Ongoing performance, portfolio synergies, and value creation</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section id="thesis">
+  <div class="container">
+    <div class="s-label">Investment Thesis</div>
+    <div class="s-title">Picks &amp; shovels for the sports gold rush.</div>
+    <div class="s-sub">As institutional capital floods into team ownership and league equity, the underlying service infrastructure must professionalize. MFG Partners provides the operating tools to drive revenue and reduce costs.</div>
+    <div class="thesis-grid">
+      <div class="thesis-card"><h3>Contracted Revenue</h3><p>Long-term agreements with professional teams and leagues provide predictable, recurring cash flows that de-risk the portfolio and support consistent distributions.</p></div>
+      <div class="thesis-card"><h3>Asset-Light Model</h3><p>Commission-based and fee-for-service models deliver high margins with minimal capital reinvestment &mdash; maximizing free cash flow generation across every vertical.</p></div>
+      <div class="thesis-card"><h3>Cross-Sell Flywheel</h3><p>Each operating company drives referrals across the platform, compounding client value over time. One team relationship unlocks four distinct revenue streams.</p></div>
+      <div class="thesis-card"><h3>Sector Tailwinds</h3><p>The middle market of sports services is fragmented and consolidating, favoring disciplined acquirers with operational expertise and institutional relationships.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="why-section" id="why-now">
+  <div class="container">
+    <div class="s-label">Market Catalyst</div>
+    <div class="s-title">Why Now?</div>
+    <div class="s-sub">The sports investment ecosystem is experiencing an unprecedented influx of institutional capital. In the last 6&ndash;8 months, over $20 billion in new commitments have entered the space. All in the last 6&ndash;8 months:</div>
+    <div class="ticker">
+      <div class="stat"><div class="num">$20B+</div><div class="label">New Capital</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Fund Launches</div></div>
+      <div class="stat"><div class="num">1,000+</div><div class="label">M&amp;A Deals</div></div>
+      <div class="stat"><div class="num">100%</div><div class="label">YoY Deal Growth</div></div>
+    </div>
+    <div class="wn-grid">
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">1</div><div class="wn-text"><h4>KKR Acquires Arctos for $1.4B</h4><p>Just 5 years after Arctos launched &mdash; validating the dedicated sports fund model.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">2</div><div class="wn-text"><h4>Bruin Capital Raises $1B</h4><p>Targeting middle-market sports businesses &mdash; our exact segment.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">3</div><div class="wn-text"><h4>CVC Raises $4.25B for Global Sports Group</h4><p>Complementing their existing $14B AUM in sports assets.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">4</div><div class="wn-text"><h4>Smith &amp; Sweeney Launch $1B Fund</h4><p>Jazz owner + Accel partner targeting sports/tech/experience convergence.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">5</div><div class="wn-text"><h4>Goldman Sachs PE Acquires ~$1B Stake</h4><p>In leading sports agency Excel Sports Management.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">6</div><div class="wn-text"><h4>Avenue Capital Raises $1B</h4><p>For investment into sports teams and leagues.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">7</div><div class="wn-text"><h4>Sports Tech M&amp;A Up 100% in 2025</h4><p>$200B deal value across 1,000+ transactions.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">8</div><div class="wn-text"><h4>Dave Checketts Launches $1.2B Sports Fund</h4><p>Former CEO of Madison Square Garden enters dedicated sports investing.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">9</div><div class="wn-text"><h4>Apollo Launches Sports Capital with $6B</h4><p>The largest single deployment into the sports ecosystem.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">10</div><div class="wn-text"><h4>Otro Capital Raises $1.2B Inaugural Fund</h4><p>First-time fund focused exclusively on sports assets.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">11</div><div class="wn-text"><h4>TKO Posts $546.2M Revenue, $1.6B Adj. EBITDA</h4><p>The anti-AI signal: as the world automates, demand for real, live events deepens.</p><span class="src">Read article &#8599;</span></div></a>
+      <a class="wn-item" href="#" target="_blank"><div class="wn-num">12</div><div class="wn-text"><h4>NYT: Youth Sports Is a $40B Industry</h4><p>Institutional recognition of the full sports value chain beyond professional leagues.</p><span class="src">Read article &#8599;</span></div></a>
+    </div>
+    <div class="wn-callout">
+      <h3>What This Means</h3>
+      <p>Sports properties must now operate as optimized, profitable businesses &mdash; not legacy cost centers. As capital floods into ownership, the underlying service infrastructure must professionalize. MFG Partners provides the operating tools to drive revenue and reduce costs &mdash; the picks and shovels for the gold rush.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ANTI-AI -->
+<section class="anti-ai">
+  <h2>The <em>Anti-AI</em> Thesis</h2>
+  <p>As the world becomes automated and artificial, consumer demand for real, live, in-person experiences deepens. Sports is the ultimate anti-AI asset class &mdash; irreplaceable, emotionally charged, inherently physical.</p>
+  <div class="row">
+    <div><div class="num">$546.2M</div><div class="label">TKO Revenue (2025)</div></div>
+    <div><div class="num">$1.6B</div><div class="label">TKO Adj. EBITDA</div></div>
+  </div>
+</section>
+
+<!-- SPORTS TOURISM -->
+<section id="tourism">
+  <div class="container">
+    <div class="s-label">Growth Thesis</div>
+    <div class="s-title">The Sports Tourism Opportunity</div>
+    <div class="s-sub">If our platform coordinates travel for professional teams, why not for the fans following them? Sports tourism is an $813B market &mdash; and we have the infrastructure to capture it.</div>
+    <div class="tour-stats">
+      <div class="tour-stat"><div class="num">$813B</div><div class="label">Total Sports Tourism Market (2026)</div></div>
+      <div class="tour-stat"><div class="num">$114.4B</div><div class="label">Spectator Tourism (2024, SportsETA)</div></div>
+      <div class="tour-stat"><div class="num">$40B</div><div class="label">Youth Sports Industry (NYT)</div></div>
+    </div>
+    <h4 style="font-size:.8rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem;">Family Sports Travel Spending (2023)</h4>
+    <div class="spend-row">
+      <div class="spend-box"><div class="amt">$13.5B</div><div class="cat">Transportation</div></div>
+      <div class="spend-box"><div class="amt">$10.9B</div><div class="cat">Lodging</div></div>
+      <div class="spend-box"><div class="amt">$9.7B</div><div class="cat">Food &amp; Bev</div></div>
+      <div class="spend-box"><div class="amt">$6.9B</div><div class="cat">Entertainment</div></div>
+      <div class="spend-box"><div class="amt">$6.5B</div><div class="cat">Shopping</div></div>
+    </div>
+    <div class="tour-callout">
+      <p><strong>The Strategic Play:</strong> Our travel vertical already manages logistics for professional teams. The natural extension: serve the fans and families traveling to follow those teams &mdash; transforming a niche B2B service into a platform addressing an $813B addressable market. <em style="color:var(--light)">Source: SportsETA, 2024.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="lead-section" id="leadership">
+  <div class="container">
+    <div class="s-label">Team</div>
+    <div class="s-title">Leadership</div>
+    <div class="s-sub">Operators and investors with direct experience across sports ownership, family office capital allocation, and middle-market operations.</div>
+    <div class="lead-cards">
+      <div class="lead-card" onclick="openModal('jordan')">
+        <div class="lead-hdr"><div class="lead-av">JG</div><h3>Jordan Gazdik</h3><div class="role">Chief Executive Officer</div></div>
+        <div class="lead-body"><p>Strategic vision, deal origination, and industry relationships. Direct ownership in MLB, EPL, USL, TGL. 200+ client athlete agency.</p><div class="lead-tags"><span class="lead-tag">MLB</span><span class="lead-tag">EPL</span><span class="lead-tag">USL</span><span class="lead-tag">TGL</span><span class="lead-tag">Athlete Agency</span></div></div>
+        <div class="lead-expand">View full profile &#8599;</div>
+      </div>
+      <div class="lead-card" onclick="openModal('zachary')">
+        <div class="lead-hdr"><div class="lead-av">ZM</div><h3>Zachary Mosseri</h3><div class="role">Chief Business Officer</div></div>
+        <div class="lead-body"><p>Business infrastructure, IR, and capital raise strategy. Family office background spanning real estate, private credit, PE, VC, licensing, and IP.</p><div class="lead-tags"><span class="lead-tag">Family Office</span><span class="lead-tag">PE</span><span class="lead-tag">VC</span><span class="lead-tag">Credit</span><span class="lead-tag">IR</span></div></div>
+        <div class="lead-expand">View full profile &#8599;</div>
+      </div>
+      <div class="lead-card" onclick="openModal('aaron')">
+        <div class="lead-hdr"><div class="lead-av">AF</div><h3>Aaron Fernandez</h3><div class="role">Chief Operating Officer</div></div>
+        <div class="lead-body"><p>Deal structuring, legal coordination, and bank financing. Former pro baseball player turned family office operator across food retail, RE, and insurance.</p><div class="lead-tags"><span class="lead-tag">Pro Athlete</span><span class="lead-tag">Deals</span><span class="lead-tag">RE</span><span class="lead-tag">Insurance</span></div></div>
+        <div class="lead-expand">View full profile &#8599;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN / TWO PATHS -->
+<section class="join-section" id="join">
+  <div class="container">
+    <div class="s-label">Partner With Us</div>
+    <div class="s-title">Two paths to join the platform.</div>
+    <div class="s-sub">Whether you're deploying capital or building a sports service business, MFG Partners offers a differentiated home.</div>
+    <div class="join-grid">
+      <!-- INVESTORS -->
+      <div class="join-card">
+        <div class="icon" style="background:var(--accent);">&#9733;</div>
+        <h3>For Capital Partners</h3>
+        <p>Family offices, HNW individuals, and institutional allocators seeking informed exposure to the global sports economy through a platform with contracted cash flows and a proven acquisition playbook.</p>
+        <ul>
+          <li>Contracted, recurring revenue across four verticals</li>
+          <li>Asset-light, high-margin operating model</li>
+          <li>Cross-sell flywheel compounds client value</li>
+          <li>$20B+ in sector capital validates the timing</li>
+          <li>Experienced team with direct sports ownership interests</li>
+        </ul>
+        <a href="mailto:team@cymbul.co" class="btn btn-primary">Discuss Investment &#8594;</a>
+      </div>
+      <!-- OPERATORS -->
+      <div class="join-card">
+        <div class="icon" style="background:var(--steel);">&#9881;</div>
+        <h3>For Operating Partners</h3>
+        <p>Sports service business owners looking for a platform home &mdash; shared infrastructure, institutional client relationships, and a team that understands your business because we've built them ourselves.</p>
+        <ul>
+          <li>Maintain operational independence with platform support</li>
+          <li>Access MFG's client base of professional teams and leagues</li>
+          <li>Cross-sell across four complementary verticals</li>
+          <li>Institutional back-office: finance, legal, and strategy</li>
+          <li>Flexible structures: acquisition, majority stake, or partnership</li>
+        </ul>
+        <a href="mailto:team@cymbul.co" class="btn btn-primary">Start a Conversation &#8594;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">MFG <span>Partners</span></div>
+  <p>Sports Services Investment &amp; Operating Platform &mdash; Confidential &mdash; March 2026</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="m-hdr" id="m-hdr"><button class="m-close" onclick="closeModal()">&#215;</button><div class="m-av" id="m-av"></div><h2 id="m-name"></h2><div class="role" id="m-role"></div><div class="ent">MFG Partners / CYMBUL</div></div>
+    <div class="m-body" id="m-body"></div>
+  </div>
+</div>
+
+<script>
+const P={
+jordan:{i:"JG",n:"Jordan Gazdik",r:"Chief Executive Officer",
+b:"Jordan Gazdik is the co-founder and CEO of MFG Partners and CYMBUL, a sports investment advisory and operating platform. He leads strategic vision, deal origination, and industry relationships across the global sports ecosystem with direct experience in sports ownership, athlete representation, and health and wellness ventures.",
+b2:"His track record of identifying and executing on middle-market opportunities in sports positions MFG Partners as a differentiated acquirer. The combination of principal-level ownership experience and advisory-level deal flow creates a proprietary sourcing advantage that is difficult to replicate.",
+c:[["Sports Ownership","Direct ownership interests in professional baseball (MLB), professional soccer (EPL, USL), and professional golf (TGL)"],["Athlete Representation","200+ client athlete agency spanning multiple sports and disciplines"],["Health & Wellness","Ownership and operating experience across health and wellness ventures"],["Deal Origination","Extensive network across team ownership groups, league offices, and sports-adjacent businesses"],["Industry Access","Relationships spanning professional sports, media, entertainment, and institutional capital"]],
+d:["Strategic vision and long-term platform direction","Deal origination and pipeline development","LP and investor relationship management","Industry relationship cultivation with team owners, league executives, and institutional partners","Portfolio company strategic oversight and value creation"],
+t:["MLB Ownership","EPL Ownership","USL Ownership","TGL Ownership","Athlete Agency","Deal Origination","LP Relations"]},
+zachary:{i:"ZM",n:"Zachary Mosseri",r:"Chief Business Officer",
+b:"Zachary Mosseri is the Chief Business Officer of MFG Partners, directing business infrastructure, investor relations, strategic partnerships, and capital raise strategy. He brings a family office background spanning multiple asset classes and investment structures, providing the institutional sophistication required to build and scale a multi-company sports services platform.",
+b2:"His experience across multiple asset classes provides MFG Partners with the operational sophistication to structure complex transactions, manage LP relationships, and build institutional infrastructure at scale. His insider perspective on investor psychology is a critical competitive advantage in fundraising.",
+c:[["Family Office","Multi-generational family office experience across diverse asset classes"],["Real Estate","Direct experience in real estate equity, development, and portfolio management"],["Private Capital","Background in private credit, private equity, and venture capital investing"],["IP & Licensing","Experience in merchandising, licensing, and intellectual property monetization"],["Capital Markets","Track record in capital raise strategy, investor relations, and partnership development"]],
+d:["Business infrastructure development and institutional systems","Investor relations and LP communication strategy","Capital raise execution and fundraising pipeline management","Strategic partnership development and alliance building","Analyst House deal lead (25% equity target)"],
+t:["Family Office","Real Estate","Private Credit","Private Equity","Venture Capital","IR & Capital Raise","Licensing"]},
+aaron:{i:"AF",n:"Aaron Fernandez",r:"Chief Operating Officer",
+b:"Aaron Fernandez is the COO of MFG Partners, managing deal structuring, legal coordination, and bank financing. A former professional baseball player, Aaron transitioned to directly operating and structuring a family office portfolio spanning food retail, grocery, restaurant operations, real estate, debt syndication, and an insurance captive group.",
+b2:"His operator-first perspective ensures every acquisition is evaluated not just for financial returns, but for operational integration feasibility and day-one execution readiness. Where many platforms rely on financial engineering, MFG Partners benefits from Aaron\u2019s direct experience running complex, multi-vertical operating businesses.",
+c:[["Professional Athletics","Former professional baseball player with firsthand understanding of the sports ecosystem"],["Family Office Ops","Direct operating responsibility across a diversified family office portfolio"],["Food & Retail","Hands-on experience in food retail, grocery, and restaurant operations"],["Real Estate","Portfolio management across real estate equity, brokerage, and debt syndication"],["Insurance","Operating experience with an insurance captive group"],["Deal Structuring","Transaction execution across acquisitions, partnerships, legal coordination, and bank financing"]],
+d:["Deal structuring and transaction execution across all active acquisitions","Legal coordination with outside counsel on partnership agreements and entity formation","Bank financing origination and relationship management","Post-acquisition operational integration and 100-day planning","Portfolio company operational oversight with emphasis on day-one readiness"],
+t:["Former Pro Athlete","Deal Structuring","Family Office Ops","Real Estate","Insurance","Bank Financing"]}
+};
+function openModal(id){const p=P[id];if(!p)return;
+document.getElementById('m-av').textContent=p.i;document.getElementById('m-name').textContent=p.n;document.getElementById('m-role').textContent=p.r;
+let h=`<h3>Overview</h3><p>${p.b}</p><p>${p.b2}</p><h3>Credentials & Experience</h3><table class="cred-tbl">`;
+p.c.forEach(c=>{h+=`<tr><td>${c[0]}</td><td>${c[1]}</td></tr>`});
+h+=`</table><h3>Role at MFG Partners</h3><ul>`;p.d.forEach(r=>{h+=`<li>${r}</li>`});
+h+=`</ul><div class="m-tags">`;p.t.forEach(t=>{h+=`<span class="m-tag">${t}</span>`});h+=`</div>`;
+document.getElementById('m-body').innerHTML=h;document.getElementById('modal-overlay').classList.add('active');document.body.style.overflow='hidden'}
+function closeModal(e){if(e&&e.target!==document.getElementById('modal-overlay')&&!e.target.classList.contains('m-close'))return;
+document.getElementById('modal-overlay').classList.remove('active');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.05});
+document.querySelectorAll('.what-card,.thesis-card,.wn-item,.lead-card,.tour-stat,.spend-box,.join-card,.how-step').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(12px)';el.style.transition='opacity .4s,transform .4s';obs.observe(el)});
+</script>
+</body>
+</html>
